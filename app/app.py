@@ -357,6 +357,19 @@ if __name__ == "__main__":
     print(f"[INFO] Server: http://{HOST}:{PORT}")
     print("[INFO] Press CTRL+C to stop.")
 
-    ThreadingHTTPServer(
-        (HOST, PORT), Handler
-    ).serve_forever()
+    server = ThreadingHTTPServer(
+    (HOST, PORT), Handler
+)
+
+try:
+    print("[INFO] Server is running.")
+    print("[INFO] Press CTRL+C to stop.")
+
+    server.serve_forever()
+
+except KeyboardInterrupt:
+    print("\n[INFO] Shutdown signal received.")
+
+finally:
+    server.server_close()
+    print("[INFO] Sigma Intelligence server stopped.")
