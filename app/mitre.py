@@ -207,6 +207,9 @@ def analyse_rule(rule):
 
     tags = rule.get("tags", [])
 
+    tag_tactic_keys = set()
+    tag_technique_keys = set()
+
     if isinstance(tags, list):
 
         for tag in tags:
@@ -220,7 +223,9 @@ def analyse_rule(rule):
                 continue
 
             identifier = value[len("attack."):]
+            identifier = identifier.replace("_", "-")
 
+            # Technique or sub-technique tag
             if TECHNIQUE_PATTERN.fullmatch(identifier.upper()):
 
                 technique_key = add_technique(
@@ -230,24 +235,33 @@ def analyse_rule(rule):
                 )
 
                 if technique_key:
+                    tag_technique_keys.add(technique_key)
                     sources.add("attack_tags")
 
+            # Tactic tag
             elif identifier in TACTIC_NAMES:
 
                 tactic_id, tactic_name = TACTIC_NAMES[identifier]
 
-                add_tactic(
+                tactic_key = add_tactic(
                     tactic_entries,
                     tactic_id,
                     tactic_name
                 )
 
-                sources.add("attack_tags")
+                if tactic_key:
+                    tag_tactic_keys.add(tactic_key)
+                    sources.add("attack_tags")
+
+    # Associate techniques with tactics found in the same rule's tags
+    for technique_key in tag_technique_keys:
+
+        technique_entries[technique_key].setdefault(
+            "tactics", set()
+        ).update(tag_tactic_keys)
 
     return tactic_entries, technique_entries, sources
 
-
-def analyze_mitre(rules):
     """
     Analyse ATT&CK coverage across a collection of rules.
 
