@@ -142,7 +142,6 @@ The application is designed to run locally without requiring a database or exter
 sigma-detection-intelligence/
 │
 ├── README.md
-├── CHANGELOG.md
 ├── LICENSE
 ├── .gitignore
 │
