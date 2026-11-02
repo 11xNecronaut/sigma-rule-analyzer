@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIGMA INTELLIGENCE | Detection Rule Explorer</title>
+<style>
+:root{--bg:#080d16;--panel:#101827;--panel2:#131f31;--line:#243247;--muted:#8da0b8;--text:#e7eef8;--cyan:#4bd4d0;--blue:#6b9eff;--orange:#f4b35e;--red:#ff7185;--green:#64d6a2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#172b42 0,transparent 38%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1440px;margin:auto;padding:28px 30px 60px}.top{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:28px}.brand{display:flex;gap:13px;align-items:center}.mark{width:42px;height:42px;border:1px solid #327d8b;border-radius:12px;display:grid;place-items:center;color:var(--cyan);font-size:22px;background:#0d2633}.eyebrow{color:var(--cyan);font-size:10px;letter-spacing:2.2px;font-weight:800}.brand h1{font-size:19px;letter-spacing:1.2px;margin:1px 0 0}.sub{color:var(--muted);font-size:12px}.status{display:flex;align-items:center;gap:8px;color:#9bdcbe;font-size:11px;border:1px solid #285342;background:#10271f;padding:7px 11px;border-radius:99px}.dot{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 10px #64d6a2}
+.hero{display:flex;justify-content:space-between;align-items:end;margin:28px 0 18px;gap:20px}.hero h2{font-size:27px;margin:0 0 5px;letter-spacing:-.6px}.hero p{margin:0;color:var(--muted)}.stamp{font-size:10px;color:#8da0b8;letter-spacing:1px;text-align:right}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.metric,.panel{background:linear-gradient(145deg,rgba(20,32,50,.97),rgba(13,22,36,.97));border:1px solid var(--line);border-radius:13px}.metric{padding:17px 18px;position:relative;overflow:hidden}.metric:after{content:"";position:absolute;width:70px;height:70px;right:-25px;top:-28px;border:1px solid #2d5368;border-radius:50%;box-shadow:0 0 0 10px #14263a,0 0 0 20px #122236}.metric label{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:1.2px}.metric strong{display:block;font-size:28px;margin-top:7px;letter-spacing:-.8px}.metric small{color:#7890aa;font-size:10px}
+.grid{display:grid;grid-template-columns:1.05fr 1.95fr;gap:14px;margin-top:14px}.panel{padding:18px}.panelhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.panel h3{font-size:13px;letter-spacing:.7px;margin:0}.hint{color:var(--muted);font-size:11px}
+.bars{display:grid;gap:12px}.barrow{display:grid;grid-template-columns:135px 1fr 38px;align-items:center;gap:10px;font-size:11px}.barname{color:#c2d0e1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track{height:7px;background:#202e42;border-radius:9px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#347eaa,var(--cyan));border-radius:9px}.barcount{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.severity{display:flex;gap:9px;flex-wrap:wrap}.sev{padding:8px 10px;border-radius:8px;background:#0b1422;border:1px solid var(--line);font-size:11px;color:var(--muted)}.sev b{font-size:15px;color:var(--text);margin-right:5px}.sev.critical{border-color:#713744}.sev.high{border-color:#674a31}.sev.medium{border-color:#5b562d}.sev.low{border-color:#28564b}
+.explorer{margin-top:14px}.controls{display:grid;grid-template-columns:minmax(220px,1fr) 230px 150px auto;gap:9px;margin:14px 0}.field{background:#0a1320;border:1px solid #2a3a50;border-radius:8px;color:var(--text);padding:10px 12px;outline:none;width:100%;font:inherit}.field:focus{border-color:#4b9caa;box-shadow:0 0 0 2px #22505a55}button{background:#174453;color:#dffafa;border:1px solid #2d7580;border-radius:8px;padding:9px 15px;font:600 12px inherit;cursor:pointer}button:hover{background:#205c69}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:9px}table{width:100%;border-collapse:collapse;min-width:720px}th{text-align:left;color:#8fa4bd;font-size:10px;letter-spacing:1px;text-transform:uppercase;background:#0b1421;padding:12px}td{padding:12px;border-top:1px solid #1c2a3c;vertical-align:middle}tr:hover td{background:#142238}.rulename{font-weight:650;color:#e4edf8;font-size:12px}.desc{color:#8397af;font-size:10px;margin-top:3px;max-width:520px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pill{font-size:9px;text-transform:uppercase;letter-spacing:.6px;padding:4px 7px;border-radius:5px;background:#202b3c;color:#aebdd0}.pill.high,.pill.critical{background:#3b202b;color:#ff9bad}.pill.medium{background:#3a3220;color:#f5cb78}.pill.low{background:#18372f;color:#83e1b7}.open{color:var(--cyan);cursor:pointer;font-size:11px;background:none;border:0;padding:4px}.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:11px}.pages{display:flex;gap:7px}.pages button{padding:6px 10px}.empty{text-align:center;padding:35px;color:var(--muted)}
+.modal{display:none;position:fixed;inset:0;background:#02060dcc;z-index:10;padding:24px;overflow:auto}.modal.show{display:block}.dialog{max-width:950px;margin:30px auto;background:#101a29;border:1px solid #34465e;border-radius:14px;box-shadow:0 25px 90px #000a}.dialoghead{padding:19px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px}.dialoghead h3{margin:0;font-size:16px}.dialogbody{padding:20px 22px}.detailgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detail{background:#0b1421;border:1px solid #223147;padding:12px;border-radius:8px;min-width:0}.detail label{display:block;color:#7f96b0;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:5px}.detail div{overflow-wrap:anywhere;font-size:12px}.code{white-space:pre-wrap;overflow-wrap:anywhere;background:#080f19;border:1px solid #26364a;border-radius:8px;padding:14px;color:#b9d9e6;font:11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;max-height:360px;overflow:auto;margin-top:7px}.sectiontitle{font-size:11px;color:#a6b9ce;letter-spacing:1px;margin:18px 0 7px}.foot{color:#657b95;font-size:10px;margin-top:18px;display:flex;justify-content:space-between;gap:10px}
+@media(max-width:850px){.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.hero{align-items:start;flex-direction:column}.stamp{text-align:left}}@media(max-width:520px){.wrap{padding:18px 13px}.metrics{gap:8px}.metric{padding:13px}.metric strong{font-size:23px}.controls{grid-template-columns:1fr}.detailgrid{grid-template-columns:1fr}.top{align-items:flex-start}.status{font-size:0}.status .dot{margin:2px}}
+</style></head>
+<body><div class="wrap">
+<header class="top"><div class="brand"><div class="mark">Σ</div><div><div class="eyebrow">DETECTION ENGINEERING PLATFORM</div><h1>SIGMA INTELLIGENCE</h1><div class="sub">Elastic rule inventory · Local analysis</div></div></div><div class="status"><span class="dot"></span> LOCAL DATASET LOADED</div></header>
+<section class="hero"><div><h2>Detection Rule Explorer</h2><p>Search, inspect and analyze your converted Sigma detection rules.</p></div><div class="stamp">OFFLINE-FIRST &nbsp; / &nbsp; READ-ONLY INVENTORY</div></section>
+<section class="metrics">
+<div class="metric"><label>Detection records</label><strong id="total">—</strong><small>Parsed from NDJSON</small></div>
+<div class="metric"><label>Rule categories</label><strong id="cats">—</strong><small>Source folder taxonomy</small></div>
+<div class="metric"><label>NDJSON files</label><strong id="files">—</strong><small>Files discovered</small></div>
+<div class="metric"><label>Parse errors</label><strong id="errors">—</strong><small>Invalid records skipped</small></div>
+</section>
+<section class="grid">
+<div class="panel"><div class="panelhead"><h3>TOP RULE CATEGORIES</h3><span class="hint">By record count</span></div><div id="bars" class="bars"><div class="hint">Loading inventory…</div></div></div>
+<div class="panel"><div class="panelhead"><h3>SEVERITY DISTRIBUTION</h3><span class="hint">From Elastic rule metadata</span></div><div id="severity" class="severity"></div><div class="sectiontitle">DATASET NOTES</div><div class="hint" id="datasetnote">Loading dataset metadata…</div><div class="sectiontitle">QUICK FILTERS</div><div class="severity"><button onclick="quick('windows')">Windows</button><button onclick="quick('linux')">Linux</button><button onclick="quick('cloud')">Cloud</button><button onclick="quick('powershell')">PowerShell</button><button onclick="quick('T1059')">ATT&amp;CK T1059</button></div></div>
+</section>
+<section class="panel explorer"><div class="panelhead"><h3>RULE INVENTORY</h3><span class="hint" id="resultcount">Searching records…</span></div>
+<div class="controls"><input id="search" class="field" placeholder="Search rule name, description, ATT&CK ID…" autocomplete="off"><select id="category" class="field"><option value="">All categories</option></select><select id="severityFilter" class="field"><option value="">All severities</option><option>critical</option><option>high</option><option>medium</option><option>low</option></select><button onclick="searchRules(true)">SEARCH</button></div>
+<div class="tablewrap"><table><thead><tr><th>Detection rule</th><th>Category</th><th>Severity</th><th>Risk</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty">Loading detection rules…</td></tr></tbody></table></div>
+<div class="pagination"><span id="pageinfo">—</span><div class="pages"><button onclick="move(-1)">← Previous</button><button onclick="move(1)">Next →</button></div></div></section>
+<div class="foot"><span>SIGMA INTELLIGENCE · LOCAL RULE EXPLORER</span><span>Data is inspected locally; no telemetry is transmitted.</span></div>
+</div>
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="dialog"><div class="dialoghead"><div><div class="eyebrow">DETECTION RECORD</div><h3 id="modalname">Rule details</h3></div><button onclick="closeModal()">CLOSE ×</button></div><div class="dialogbody" id="modalbody"></div></div></div>
+<script>
+let offset=0,totalFound=0,limit=25,searchTimer;
+const $=id=>document.getElementById(id);
+const fmt=n=>Number(n||0).toLocaleString();
+async function api(path){const r=await fetch(path);if(!r.ok)throw new Error(await r.text());return r.json()}
+async function init(){
+ try{
+  const s=await api('/api/stats');
+  $('total').textContent=fmt(s.total);$('cats').textContent=fmt(s.categories);$('files').textContent=fmt(s.files);$('errors').textContent=fmt(s.errors);
+  $('datasetnote').textContent=`Loaded ${fmt(s.total)} valid Elastic rule records from ${fmt(s.files)} files. This explorer reads converted NDJSON; it does not execute detections or connect to Elasticsearch.`;
+  const max=Math.max(1,...s.top_categories.map(x=>x.count));
+  $('bars').innerHTML=s.top_categories.map(x=>`<div class="barrow"><span class="barname" title="${esc(x.name)}">${esc(x.name)}</span><div class="track"><div class="fill" style="width:${x.count/max*100}%"></div></div><span class="barcount">${fmt(x.count)}</span></div>`).join('');
+  const order=['critical','high','medium','low','unknown'];
+  $('severity').innerHTML=order.filter(k=>s.severity[k]).map(k=>`<div class="sev ${k}"><b>${fmt(s.severity[k])}</b>${k}</div>`).join('')||'<span class="hint">No severity metadata</span>';
+  const cats=await api('/api/categories');
+  $('category').innerHTML='<option value="">All categories</option>'+cats.map(c=>`<option value="${esc(c.name)}">${esc(c.name)} (${c.count})</option>`).join('');
+  await searchRules(true);
+ }catch(e){$('rows').innerHTML=`<tr><td colspan="5" class="empty">Could not load dataset: ${esc(e.message)}</td></tr>`}
+}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function searchRules(reset=false){
+ if(reset)offset=0;
+ const p=new URLSearchParams({q:$('search').value,category:$('category').value,severity:$('severityFilter').value,offset,limit});
+ $('rows').innerHTML='<tr><td colspan="5" class="empty">Searching…</td></tr>';
+ const d=await api('/api/rules?'+p);totalFound=d.total;
+ $('resultcount').textContent=fmt(d.total)+' matching records';
+ $('rows').innerHTML=d.items.length?d.items.map(r=>`<tr><td><div class="rulename">${esc(r.name||'Untitled rule')}</div><div class="desc">${esc(r.description||'No description')}</div></td><td><span class="pill">${esc(r._category)}</span></td><td><span class="pill ${(r.severity||'').toLowerCase()}">${esc(r.severity||'unknown')}</span></td><td>${esc(r.risk_score??'—')}</td><td><button class="open" onclick="showRule('${encodeURIComponent(r._local_id)}')">INSPECT ↗</button></td></tr>`).join(''):'<tr><td colspan="5" class="empty">No matching rules. Adjust your filters.</td></tr>';
+ $('pageinfo').textContent=`Showing ${d.total?offset+1:0}–${Math.min(offset+d.items.length,d.total)} of ${fmt(d.total)}`;
+}
+function move(n){if(offset+n*limit<0||offset+n*limit>=totalFound)return;offset+=n*limit;searchRules(false)}
+function quick(q){$('search').value=q;$('category').value='';searchRules(true)}
+$('search').addEventListener('input',()=>{clearTimeout(searchTimer);searchTimer=setTimeout(()=>searchRules(true),250)});
+$('category').addEventListener('change',()=>searchRules(true));$('severityFilter').addEventListener('change',()=>searchRules(true));
+async function showRule(id){
+ const r=await api('/api/rule?id='+id);$('modalname').textContent=r.name||'Untitled rule';
+ const detail=(label,value)=>`<div class="detail"><label>${label}</label><div>${esc(Array.isArray(value)?value.join(', '):(value??'—'))}</div></div>`;
+ const threat=(r.threat||[]).map(t=>`${t.tactic?.name||''} ${((t.technique||[]).map(x=>`${x.name} (${x.id})`)).join(', ')}`).join(' | ');
+ $('modalbody').innerHTML=`<div class="detailgrid">${detail('Severity',r.severity)}${detail('Risk score',r.risk_score)}${detail('Rule ID',r.rule_id)}${detail('Category',r._category)}${detail('Rule type / language',(r.type||'—')+' / '+(r.language||'—'))}${detail('Index patterns',r.index||[])}${detail('MITRE ATT&CK',threat||'No ATT&CK mapping in record')}${detail('Tags',r.tags||[])}</div><div class="sectiontitle">DESCRIPTION</div><div class="hint">${esc(r.description||'No description provided.')}</div><div class="sectiontitle">DETECTION QUERY</div><pre class="code">${esc(r.query||JSON.stringify(r, null, 2))}</pre><div class="sectiontitle">SOURCE FILE</div><div class="hint">${esc(r._source_file)}</div><div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button onclick="copyText(${JSON.stringify(JSON.stringify(r,null,2))})">COPY JSON</button><button onclick="downloadRule(${JSON.stringify(JSON.stringify(r,null,2))},${JSON.stringify((r.name||'sigma-rule').replace(/[^a-z0-9_-]/gi,'_')+'.json')})">EXPORT JSON</button></div>`;
+ $('modal').classList.add('show');
+}
+function closeModal(){$('modal').classList.remove('show')}
+async function copyText(t){try{await navigator.clipboard.writeText(t)}catch(e){alert('Clipboard unavailable in this browser context.')}}
+function downloadRule(content,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type:'application/json'}));a.download=name;a.click();URL.revokeObjectURL(a.href)}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+init();
+</script></body></html>
