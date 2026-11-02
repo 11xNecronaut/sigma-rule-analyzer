@@ -12,6 +12,7 @@ Supports:
 """
 
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from mitre import analyze_mitre
 from urllib.parse import urlparse, parse_qs
 from pathlib import Path, PurePosixPath
 from zipfile import ZipFile, BadZipFile
@@ -231,6 +232,12 @@ class Handler(SimpleHTTPRequestHandler):
                 for name, count in sorted(categories.items())
             ]
 
+            send_json(self, result)
+            return
+            
+         # MITRE ATT&CK coverage analysis
+        if parsed.path == "/api/mitre/coverage":
+            result = analyze_mitre(records)
             send_json(self, result)
             return
 
