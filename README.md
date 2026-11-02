@@ -187,7 +187,7 @@ sigma-detection-intelligence/
 - Python 3 installed.
 - Git.
 - A modern web browser.
-- A local copy of the Elastic-compatible NDJSON detection rules.
+- A local copy of the Elastic-compatible NDJSON detection rules. (a no. of pre-written rules also provided in this repo as ndjson.zip file in rules folder....or you can use your own)
 
 No additional Python packages are required for the basic application if using the standard-library implementation.
 
