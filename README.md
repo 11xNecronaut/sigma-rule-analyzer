@@ -1,4 +1,4 @@
-# Sigma Rule Analyzer
+#          Sigma Rule Analyzer
 
 **A local, dependency-free Python tool for exploring Elastic-compatible detection rules, mapping them to MITRE ATT&CK, and developing custom Sigma detections.**
 
