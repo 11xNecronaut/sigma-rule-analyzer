@@ -1,6 +1,6 @@
-  # Sigma Rule Analyzer
+<h1 align="center">Sigma Rule Analyzer</h1>
 
-**A local, dependency-free Python tool for exploring Elastic-compatible detection rules, mapping them to MITRE ATT&CK, and developing custom Sigma detections.**
+<p align="center"><b>A local, dependency-free Python tool for exploring Elastic-compatible detection rules, mapping them to MITRE ATT&CK, and developing custom Sigma detections.</b></p>
 
 <p align="center">
   <img src="screenshots/overview.png" alt="Sigma Rule Analyzer overview" width="850">
