@@ -406,3 +406,164 @@ def analyse_rule(rule):
 def technique_rules_for(technique):
     """Return tactic associations already extracted for a technique."""
     return technique.get("tactics", set())
+
+
+def analyze_mitre(rules):
+    """
+    Analyse MITRE ATT&CK associations across detection rules.
+    Counts unique rule records per tactic and technique.
+    """
+
+    tactics = {}
+    techniques = {}
+
+    mapped_rule_keys = set()
+    source_rule_keys = {}
+    unmapped = []
+
+    total = len(rules)
+
+    for index, rule in enumerate(rules):
+
+        if not isinstance(rule, dict):
+            unmapped.append({
+                "id": None,
+                "name": "Invalid record",
+                "category": "unknown"
+            })
+            continue
+
+        key = str(
+            rule.get("_local_id")
+            or rule.get("rule_id")
+            or rule.get("id")
+            or f"record:{index}"
+        )
+
+        rule_tactics, rule_techniques, sources = analyse_rule(rule)
+
+        # Determine whether this rule has recognised ATT&CK mappings.
+        if rule_tactics or rule_techniques:
+            mapped_rule_keys.add(key)
+        else:
+            unmapped.append({
+                "id": rule.get("rule_id") or rule.get("id"),
+                "name": rule.get("name") or rule.get("title") or "Unnamed Rule",
+                "category": rule.get("_category", "unknown")
+            })
+
+        # Track mapping sources.
+        for source in sources:
+            source_rule_keys.setdefault(source, set()).add(key)
+
+        # Aggregate tactic associations.
+        for tactic_key, tactic in rule_tactics.items():
+
+            entry = tactics.setdefault(
+                tactic_key,
+                {
+                    "id": tactic.get("id"),
+                    "name": tactic.get("name"),
+                    "rules": set(),
+                    "techniques": set()
+                }
+            )
+
+            entry["rules"].add(key)
+
+        # Aggregate technique associations.
+        for technique_key, technique in rule_techniques.items():
+
+            entry = techniques.setdefault(
+                technique_key,
+                {
+                    "id": technique.get("id"),
+                    "name": technique.get("name"),
+                    "rules": set(),
+                    "tactics": set()
+                }
+            )
+
+            entry["rules"].add(key)
+
+            entry["tactics"].update(
+                technique.get("tactics", set())
+            )
+
+    # Connect techniques to their associated tactics.
+    for technique_key, technique in techniques.items():
+
+        for tactic_key in technique["tactics"]:
+
+            if tactic_key in tactics:
+                tactics[tactic_key]["techniques"].add(
+                    technique_key
+                )
+
+    # Prepare tactic results.
+    tactic_results = []
+
+    for tactic in tactics.values():
+
+        tactic_results.append({
+            "id": tactic["id"],
+            "name": tactic["name"],
+            "rule_count": len(tactic["rules"]),
+            "technique_count": len(tactic["techniques"])
+        })
+
+    tactic_results.sort(
+        key=lambda item: (-item["rule_count"], item["name"] or "")
+    )
+
+    # Prepare technique results.
+    technique_results = []
+
+    for technique in techniques.values():
+
+        associated_tactics = []
+
+        for tactic_key in technique["tactics"]:
+
+            tactic = tactics.get(tactic_key)
+
+            if tactic:
+                associated_tactics.append(
+                    tactic["id"] or tactic["name"]
+                )
+
+        technique_results.append({
+            "id": technique["id"],
+            "name": technique["name"],
+            "rule_count": len(technique["rules"]),
+            "tactics": sorted(associated_tactics)
+        })
+
+    technique_results.sort(
+        key=lambda item: (-item["rule_count"], item["id"])
+    )
+
+    mapped = len(mapped_rule_keys)
+    unmapped_count = max(0, total - mapped)
+
+    percentage = round(
+        (mapped / total) * 100, 2
+    ) if total else 0.0
+
+    return {
+        "total_rules": total,
+        "mapped_rules": mapped,
+        "unmapped_rules": unmapped_count,
+        "coverage_percentage": percentage,
+        "unique_tactics": len(tactic_results),
+        "unique_techniques": len(technique_results),
+        "mapping_sources": {
+            source: len(keys)
+            for source, keys in source_rule_keys.items()
+        },
+        "tactics": tactic_results,
+        "techniques": technique_results,
+        "unmapped_rule_samples": unmapped[:100],
+        "unmapped_samples_limit": 100
+    }
+
