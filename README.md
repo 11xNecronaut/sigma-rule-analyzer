@@ -174,9 +174,7 @@ sigma-detection-intelligence/
     ├── rule_search.png
     ├── rule_details.png
     └── mitre_coverage.png
-    ├── test_results.png
-    ├── api_response.png
-    └── rule_validation.png
+
 ```
 
 *Note: This represents the intended repository organisation. Add files as their corresponding functionality is implemented.*
@@ -196,7 +194,7 @@ No additional Python packages are required for the basic application if using th
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/11xNecronaut/sigma-detection-intelligence.git
+git clone https://github.com/11xNecronaut/sigma-rule-analyzer.git
 
 cd sigma-detection-intelligence
 ```
@@ -210,7 +208,7 @@ Set the `SIGMA_RULES_DIR` environment variable to the location of your NDJSON fi
 Example for Linux:
 
 ```bash
-export SIGMA_RULES_DIR="$HOME/Downloads/sigma-rules-crawler-main/rules/ndjson"
+export SIGMA_RULES_DIR="$HOME/Downloads/sigma-rule-analyzer-main/rules/ndjson"
 ```
 
 Replace the example path with the actual location of your rule collection.
@@ -220,7 +218,7 @@ Replace the example path with the actual location of your rule collection.
 ```bash
 cd app
 
-SIGMA_RULES_DIR="$HOME/Downloads/sigma-rules-crawler-main/rules/ndjson" python3 app.py
+SIGMA_RULES_DIR="$HOME/Downloads/sigma-rulea-nalyzer/" python3 app.py
 ```
 
 ### Access the Interface
