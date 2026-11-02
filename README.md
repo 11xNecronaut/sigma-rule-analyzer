@@ -43,6 +43,11 @@ The project focuses on the following objectives:
 - Explore rules using names, descriptions and associated metadata.
 - Filter rules by available categories and severity levels.
 - Inspect individual detection rule records.
+- MITRE ATT&CK tactic and technique distribution analysis.
+- Detection rule mapping statistics.
+- Identification of detection rules without ATT&CK mappings.
+- Analysis of MITRE metadata and ATT&CK tag associations.
+- Technique-wise and tactic-wise rule distribution.
 
 ### Detection Logic Analysis
 
@@ -137,37 +142,39 @@ The application is designed to run locally without requiring a database or exter
 sigma-detection-intelligence/
 │
 ├── README.md
+├── CHANGELOG.md
 ├── LICENSE
 ├── .gitignore
 │
 ├── app/
 │   ├── app.py
-│   └── index.html
+│   ├── index.html
+│   ├── mitre.py
+│   ├── mitre.html
+│   └── validation.py
 │
-├── custom-rules/
-│   ├── windows/
-│   │   ├── suspicious_powershell.yml
-│   │   ├── repeated_failed_logins.yml
-│   │   └── suspicious_scheduled_task.yml
-│   │
-│   └── README.md
+├── rules/
+│   ├── README.md
+│   └── ndjson.zip
 │
 ├── rule-analysis/
+│   ├── README.md
 │   ├── rule_format.md
-│   ├── mitre_mapping.md
-│   └── detection_logic.md
+│   ├── detection_logic.md
+│   └── mitre_mapping.md
 │
-├── sample-data/
-│   └── README.md
+├── tests/
+│   ├── README.md
+│   ├── test_rule_loader.py
+│   ├── test_api.py
+│   ├── test_data_validation.py
+│   └── test_mitre_analysis.py
 │
-├── screenshots/
-│   ├── overview.png
-│   ├── rule_search.png
-│   └── rule_details.png
-│
-└── tests/
-    ├── test_parser.py
-    └── test_rules.py
+└── screenshots/
+    ├── overview.png
+    ├── rule_search.png
+    ├── rule_details.png
+    └── mitre_coverage.png
 ```
 
 *Note: This represents the intended repository organisation. Add files as their corresponding functionality is implemented.*
