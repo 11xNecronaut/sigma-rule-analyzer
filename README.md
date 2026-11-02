@@ -245,7 +245,7 @@ title: Suspicious PowerShell Encoded Command
 id: 7b1d2a91-5c42-4a13-9e21-123456789abc
 status: experimental
 description: Detects PowerShell execution using an encoded command argument.
-author: Your Name
+author: Dipesh
 date: 2026/11/02
 
 logsource:
