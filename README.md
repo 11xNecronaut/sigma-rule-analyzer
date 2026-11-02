@@ -174,6 +174,9 @@ sigma-detection-intelligence/
     ├── rule_search.png
     ├── rule_details.png
     └── mitre_coverage.png
+    ├── test_results.png
+    ├── api_response.png
+    └── rule_validation.png
 ```
 
 *Note: This represents the intended repository organisation. Add files as their corresponding functionality is implemented.*
