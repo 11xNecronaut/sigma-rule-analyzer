@@ -15,9 +15,46 @@
 .explorer{margin-top:14px}.controls{display:grid;grid-template-columns:minmax(220px,1fr) 230px 150px auto;gap:9px;margin:14px 0}.field{background:#0a1320;border:1px solid #2a3a50;border-radius:8px;color:var(--text);padding:10px 12px;outline:none;width:100%;font:inherit}.field:focus{border-color:#4b9caa;box-shadow:0 0 0 2px #22505a55}button{background:#174453;color:#dffafa;border:1px solid #2d7580;border-radius:8px;padding:9px 15px;font:600 12px inherit;cursor:pointer}button:hover{background:#205c69}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:9px}table{width:100%;border-collapse:collapse;min-width:720px}th{text-align:left;color:#8fa4bd;font-size:10px;letter-spacing:1px;text-transform:uppercase;background:#0b1421;padding:12px}td{padding:12px;border-top:1px solid #1c2a3c;vertical-align:middle}tr:hover td{background:#142238}.rulename{font-weight:650;color:#e4edf8;font-size:12px}.desc{color:#8397af;font-size:10px;margin-top:3px;max-width:520px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pill{font-size:9px;text-transform:uppercase;letter-spacing:.6px;padding:4px 7px;border-radius:5px;background:#202b3c;color:#aebdd0}.pill.high,.pill.critical{background:#3b202b;color:#ff9bad}.pill.medium{background:#3a3220;color:#f5cb78}.pill.low{background:#18372f;color:#83e1b7}.open{color:var(--cyan);cursor:pointer;font-size:11px;background:none;border:0;padding:4px}.pagination{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:11px}.pages{display:flex;gap:7px}.pages button{padding:6px 10px}.empty{text-align:center;padding:35px;color:var(--muted)}
 .modal{display:none;position:fixed;inset:0;background:#02060dcc;z-index:10;padding:24px;overflow:auto}.modal.show{display:block}.dialog{max-width:950px;margin:30px auto;background:#101a29;border:1px solid #34465e;border-radius:14px;box-shadow:0 25px 90px #000a}.dialoghead{padding:19px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px}.dialoghead h3{margin:0;font-size:16px}.dialogbody{padding:20px 22px}.detailgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detail{background:#0b1421;border:1px solid #223147;padding:12px;border-radius:8px;min-width:0}.detail label{display:block;color:#7f96b0;text-transform:uppercase;font-size:9px;letter-spacing:1px;margin-bottom:5px}.detail div{overflow-wrap:anywhere;font-size:12px}.code{white-space:pre-wrap;overflow-wrap:anywhere;background:#080f19;border:1px solid #26364a;border-radius:8px;padding:14px;color:#b9d9e6;font:11px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;max-height:360px;overflow:auto;margin-top:7px}.sectiontitle{font-size:11px;color:#a6b9ce;letter-spacing:1px;margin:18px 0 7px}.foot{color:#657b95;font-size:10px;margin-top:18px;display:flex;justify-content:space-between;gap:10px}
 @media(max-width:850px){.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.hero{align-items:start;flex-direction:column}.stamp{text-align:left}}@media(max-width:520px){.wrap{padding:18px 13px}.metrics{gap:8px}.metric{padding:13px}.metric strong{font-size:23px}.controls{grid-template-columns:1fr}.detailgrid{grid-template-columns:1fr}.top{align-items:flex-start}.status{font-size:0}.status .dot{margin:2px}}
+.nav-link {
+    display: inline-block;
+    text-decoration: none;
+    background: #174453;
+    color: #dffafa;
+    border: 1px solid #2d7580;
+    border-radius: 8px;
+    padding: 9px 15px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    background: #205c69;
+}
 </style></head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><div class="mark">Σ</div><div><div class="eyebrow">DETECTION ENGINEERING PLATFORM</div><h1>SIGMA INTELLIGENCE</h1><div class="sub">Elastic rule inventory · Local analysis</div></div></div><div class="status"><span class="dot"></span> LOCAL DATASET LOADED</div></header>
+<header class="top">
+
+    <div class="brand">
+        <div class="mark">Σ</div>
+        <div>
+            <div class="eyebrow">DETECTION ENGINEERING PLATFORM</div>
+            <h1>SIGMA INTELLIGENCE</h1>
+            <div class="sub">Elastic rule inventory · Local analysis</div>
+        </div>
+    </div>
+
+    <a href="/mitre.html" class="nav-link">
+        MITRE ATT&CK COVERAGE
+    </a>
+
+    <div class="status">
+        <span class="dot"></span>
+        LOCAL DATASET LOADED
+    </div>
+
+</header>
 <section class="hero"><div><h2>Detection Rule Explorer</h2><p>Search, inspect and analyze your converted Sigma detection rules.</p></div><div class="stamp">OFFLINE-FIRST &nbsp; / &nbsp; READ-ONLY INVENTORY</div></section>
 <section class="metrics">
 <div class="metric"><label>Detection records</label><strong id="total">—</strong><small>Parsed from NDJSON</small></div>
