@@ -1,0 +1,62 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets/
+
+# Logs and databases
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# Security telemetry and collected data
+telemetry/
+evidence/
+captures/
+datasets/
+raw-data/
+*.evtx
+*.etl
+*.pcap
+*.pcapng
+
+# Downloaded third-party rule collections
+rules/ndjson/
+imported-rules/
+
+# Testing
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# IDE files
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
