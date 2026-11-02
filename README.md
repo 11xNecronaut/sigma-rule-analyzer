@@ -196,7 +196,7 @@ No additional Python packages are required for the basic application if using th
 ```bash
 git clone https://github.com/11xNecronaut/sigma-rule-analyzer.git
 
-cd sigma-detection-intelligence
+cd sigma-rule-analyzer
 ```
 
 ### Configure the Detection Rule Directory
@@ -218,7 +218,7 @@ Replace the example path with the actual location of your rule collection.
 ```bash
 cd app
 
-SIGMA_RULES_DIR="$HOME/Downloads/sigma-rulea-nalyzer/" python3 app.py
+SIGMA_RULES_DIR="$HOME/Downloads/sigma-rulea-analyzer/" python3 app.py
 ```
 
 ### Access the Interface
