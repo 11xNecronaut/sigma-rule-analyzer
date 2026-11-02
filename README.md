@@ -1,4 +1,4 @@
-# Sigma Detection Intelligence
+# Sigma Rule Analyzer
 
 **A Python-based detection rule analysis and intelligence tool for exploring Sigma-derived security detections, analysing Elastic-compatible rules, and developing custom detection logic.**
 
